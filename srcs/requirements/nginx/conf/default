@@ -1,0 +1,16 @@
+server {
+    listen      443 ssl;
+    server_name  mlalouli.42.fr www.mlalouli.42.fr;
+    root /var/www/html;
+    index index.php ;
+    ssl_certificate     /etc/nginx/ssl/mlalouli.42.fr.crt;
+    ssl_certificate_key /etc/nginx/ssl/mlalouli.42.fr.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    
+    location ~ \.php$ {
+        fastcgi_pass wordpress:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+}
